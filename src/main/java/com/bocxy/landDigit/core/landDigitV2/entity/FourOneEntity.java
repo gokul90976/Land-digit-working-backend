@@ -27,6 +27,8 @@ public class FourOneEntity {
     @Column(name = "V_4_ONE_GO_REF_NO")
     private String V_4_ONE_GO_REF_NO;
 
+    @Column(name = "D_DATE_OF_4_ONE_GO")
+    private String D_DATE_OF_4_ONE_GO;
 
     @Column(name = "V_TOTAL_EXTENT")
     private String V_TOTAL_EXTENT;

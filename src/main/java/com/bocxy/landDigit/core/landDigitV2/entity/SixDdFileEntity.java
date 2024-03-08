@@ -20,6 +20,9 @@ public class SixDdFileEntity {
     @Column(name = "N_UNIQUE_ID")
     private Long N_UNIQUE_ID;
 
+    @Column(name = "D_DATE_OF_6DD_GO")
+    private String D_DATE_OF_6DD_GO;
+
     @Column(name = "V_GAZETTE_REF_NO")
     private String V_GAZETTE_REF_NO;
 
