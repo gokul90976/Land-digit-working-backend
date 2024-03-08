@@ -62,4 +62,6 @@ public class SixDdFileEntity {
     @Transient
     private List<DynamicValueEntity> dynamicValuesDetails;
 
+    private String test;
+
 }
