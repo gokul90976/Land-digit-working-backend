@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bocxy.landDigit.core.landDigitV2.entity.AwardFileEntity;
+import com.bocxy.landDigit.core.landDigitV2.entity.AwsConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -272,7 +273,11 @@ public class LandDigitV2Controller {
         return landDigitV2DetailsService.getAwardFileWithTotals();
     }
 
-
+    //Aws
+    @GetMapping("/awsconfig")
+    public AwsConfig getAwsConfig() {
+        return landDigitV2DetailsService.getAwsConfig();
+    }
 
 
 }

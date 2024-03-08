@@ -9,33 +9,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.Transient;
 import javax.transaction.Transactional;
 
+import com.bocxy.landDigit.core.landDigitV2.entity.*;
+import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bocxy.landDigit.core.landDigitV2.entity.AwardCourtDepositPaymentEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.AwardDirectPaymentEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.AwardFileEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.AwardOtherFileEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.AwardPossessionExtentAvailableEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.AwardPossessionNotTakenOverEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.AwardPossessionTakenOverEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.AwardRevenuePaymentEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.CountEntityV2;
-import com.bocxy.landDigit.core.landDigitV2.entity.DynamicValueEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.FourOneDynamicFileEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.FourOneEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.LPSFileDynamicValueEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.LPSFileEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.LPSVillageEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.LandDigitDataEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.LandDigitMediaEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.Left4One6DDEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.Left6DDAwardEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.LeftOverLPS4OneEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.SixDdDynamicFileEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.SixDdFileEntity;
 import com.bocxy.landDigit.core.landDigitV2.model.LandDigitCountVillageViewV2;
 import com.bocxy.landDigit.core.landDigitV2.model.LandDigitListViewV2;
 import com.bocxy.landDigit.core.landDigitV2.model.LandDigitListVillageViewV2;
@@ -145,8 +125,20 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 	@Autowired
 	LandDigitMediaRepo landDigitMediaRepo;
 
-	@Autowired
-	EntityManager entityManager;
+
+
+	@Value("${aws.accessKeyId}")
+	private String accessKeyId;
+
+	@Value("${aws.secretKey}")
+	private String secretKey;
+
+	@Value("${aws.region}")
+	private String region;
+
+	@Value("${aws.s3.bucketName}")
+	private String bucketName;
+
 
 	@Value("${upload.dir}")
 	private String uploadDir;
@@ -1549,6 +1541,23 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 			}
 		return null;
 	}
+
+
+
+
+	@Override
+	public AwsConfig getAwsConfig() {
+		AwsConfig awsConfig = new AwsConfig();
+		awsConfig.setAccessKeyId(accessKeyId);
+		awsConfig.setSecretKey(secretKey);
+		awsConfig.setRegion(region);
+		awsConfig.setBucketName(bucketName);
+		return awsConfig;
+	}
+
+
+
+
 
 }
 

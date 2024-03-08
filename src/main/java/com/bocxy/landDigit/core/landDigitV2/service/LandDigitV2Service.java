@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.bocxy.landDigit.core.landDigitV2.entity.AwardFileEntity;
+import com.bocxy.landDigit.core.landDigitV2.entity.AwsConfig;
 import com.bocxy.landDigit.core.landDigitV2.model.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,4 +55,5 @@ public interface LandDigitV2Service {
      // Save Multiple Images and videos 
     public String saveImagesAndVideos(@RequestParam("files") MultipartFile[] files,String N_UNIQUE_ID) throws IOException;
 
+    AwsConfig getAwsConfig();
 }
