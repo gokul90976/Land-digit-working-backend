@@ -551,49 +551,49 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 					Long fouroneFileId = fourOneObject.getN_ID();
 					
                     // File Upload
-                    if (!(fourOneObject.getFile1() == null)) {
-                        String base64FileData = fourOneObject.getFile1();
-                        byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
-                        String generatedFileName = fourOneObject.getV_FILE_1_FILENAME();
-                        String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
-						String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
-						String filepath = bucketUrl + uniqueFileName;
-						byte[] fileBytes = decodedFileData;
-						AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
-						S3Client s3Client = S3Client.builder()
-								.region(Region.US_EAST_1)
-								.credentialsProvider(() -> credentials)
-								.build();
-						PutObjectRequest request = PutObjectRequest.builder()
-								.bucket("tnhb-land-docs")
-								.key(uniqueFileName)
-								.build();
-						PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
-						fourOneObject.setV_FILE_1_FILENAME(generatedFileName);
-                        fourOneObject.setV_FILE_1_FILEPATH(filepath);
-                    }
-
-                    if (!(fourOneObject.getFile2() == null)) {
-                        String base64FileData = fourOneObject.getFile2();
-                        byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
-                        String generatedFileName = fourOneObject.getV_FILE_2_FILENAME();
-                        String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
-						String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
-						String filepath = bucketUrl + uniqueFileName;
-						byte[] fileBytes = decodedFileData;
-						AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
-						S3Client s3Client = S3Client.builder()
-								.region(Region.US_EAST_1)
-								.credentialsProvider(() -> credentials)
-								.build();
-						PutObjectRequest request = PutObjectRequest.builder()
-								.bucket("tnhb-land-docs")
-								.key(uniqueFileName)
-								.build();
-						PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
-						fourOneObject.setV_FILE_2_FILENAME(generatedFileName);
-                        fourOneObject.setV_FILE_2_FILEPATH(filepath);
-                    }
+//                    if (!(fourOneObject.getFile1() == null)) {
+//                        String base64FileData = fourOneObject.getFile1();
+//                        byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
+//                        String generatedFileName = fourOneObject.getV_FILE_1_FILENAME();
+//                        String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
+//						String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
+//						String filepath = bucketUrl + uniqueFileName;
+//						byte[] fileBytes = decodedFileData;
+//						AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
+//						S3Client s3Client = S3Client.builder()
+//								.region(Region.US_EAST_1)
+//								.credentialsProvider(() -> credentials)
+//								.build();
+//						PutObjectRequest request = PutObjectRequest.builder()
+//								.bucket("tnhb-land-docs")
+//								.key(uniqueFileName)
+//								.build();
+//						PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
+//						fourOneObject.setV_FILE_1_FILENAME(generatedFileName);
+//                        fourOneObject.setV_FILE_1_FILEPATH(filepath);
+//                    }
+//
+//                    if (!(fourOneObject.getFile2() == null)) {
+//                        String base64FileData = fourOneObject.getFile2();
+//                        byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
+//                        String generatedFileName = fourOneObject.getV_FILE_2_FILENAME();
+//                        String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
+//						String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
+//						String filepath = bucketUrl + uniqueFileName;
+//						byte[] fileBytes = decodedFileData;
+//						AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
+//						S3Client s3Client = S3Client.builder()
+//								.region(Region.US_EAST_1)
+//								.credentialsProvider(() -> credentials)
+//								.build();
+//						PutObjectRequest request = PutObjectRequest.builder()
+//								.bucket("tnhb-land-docs")
+//								.key(uniqueFileName)
+//								.build();
+//						PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
+//						fourOneObject.setV_FILE_2_FILENAME(generatedFileName);
+//                        fourOneObject.setV_FILE_2_FILEPATH(filepath);
+//                    }
 
 
                     // Save Entity
@@ -654,27 +654,27 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 							Long fouroneFileDynamicValueId = fourOneDynamicValueObj.getN_ID();
 
                             // File Upload        
-							if (!(fourOneDynamicValueObj.getFile() == null)) {
-								String base64FileData = fourOneDynamicValueObj.getFile();
-                                byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
-                                String generatedFileName = fourOneDynamicValueObj.getV_FILE_NAME();
-                                String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
-								String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
-								String filepath = bucketUrl + uniqueFileName;
-								byte[] fileBytes = decodedFileData;
-								AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
-								S3Client s3Client = S3Client.builder()
-										.region(Region.US_EAST_1)
-										.credentialsProvider(() -> credentials)
-										.build();
-								PutObjectRequest request = PutObjectRequest.builder()
-										.bucket("tnhb-land-docs")
-										.key(uniqueFileName)
-										.build();
-								PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
-								fourOneDynamicValueObj.setV_FILE_NAME(generatedFileName);
-                                fourOneDynamicValueObj.setV_FILE_PATH(filepath);
-                            }
+//							if (!(fourOneDynamicValueObj.getFile() == null)) {
+//								String base64FileData = fourOneDynamicValueObj.getFile();
+//                                byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
+//                                String generatedFileName = fourOneDynamicValueObj.getV_FILE_NAME();
+//                                String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
+//								String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
+//								String filepath = bucketUrl + uniqueFileName;
+//								byte[] fileBytes = decodedFileData;
+//								AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
+//								S3Client s3Client = S3Client.builder()
+//										.region(Region.US_EAST_1)
+//										.credentialsProvider(() -> credentials)
+//										.build();
+//								PutObjectRequest request = PutObjectRequest.builder()
+//										.bucket("tnhb-land-docs")
+//										.key(uniqueFileName)
+//										.build();
+//								PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
+//								fourOneDynamicValueObj.setV_FILE_NAME(generatedFileName);
+//                                fourOneDynamicValueObj.setV_FILE_PATH(filepath);
+//                            }
 
 							// Save Entity
 							if (fouroneFileDynamicValueId == null && fouroneFileDynamicValueMode.equals("create")) {
@@ -715,27 +715,27 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 					Long sixddFileId = sixDdFileObject.getN_ID();
 					
                     // File Upload
-                    if (!(sixDdFileObject.getFile1() == null)) {
-                        String base64FileData = sixDdFileObject.getFile1();
-                        byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
-                        String generatedFileName = sixDdFileObject.getV_FILE_1_FILENAME();
-                        String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
-						String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
-						String filepath = bucketUrl + uniqueFileName;
-						byte[] fileBytes = decodedFileData;
-						AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
-						S3Client s3Client = S3Client.builder()
-								.region(Region.US_EAST_1)
-								.credentialsProvider(() -> credentials)
-								.build();
-						PutObjectRequest request = PutObjectRequest.builder()
-								.bucket("tnhb-land-docs")
-								.key(uniqueFileName)
-								.build();
-						PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
-						sixDdFileObject.setV_FILE_1_FILENAME(generatedFileName);
-                        sixDdFileObject.setV_FILE_1_FILEPATH(filepath);
-                    }
+//                    if (!(sixDdFileObject.getFile1() == null)) {
+//                        String base64FileData = sixDdFileObject.getFile1();
+//                        byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
+//                        String generatedFileName = sixDdFileObject.getV_FILE_1_FILENAME();
+//                        String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
+//						String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
+//						String filepath = bucketUrl + uniqueFileName;
+//						byte[] fileBytes = decodedFileData;
+//						AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
+//						S3Client s3Client = S3Client.builder()
+//								.region(Region.US_EAST_1)
+//								.credentialsProvider(() -> credentials)
+//								.build();
+//						PutObjectRequest request = PutObjectRequest.builder()
+//								.bucket("tnhb-land-docs")
+//								.key(uniqueFileName)
+//								.build();
+//						PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
+//						sixDdFileObject.setV_FILE_1_FILENAME(generatedFileName);
+//                        sixDdFileObject.setV_FILE_1_FILEPATH(filepath);
+//                    }
 
 //                    if (!(sixDdFileObject.getFile2() == null)) {
 //                        String base64FileData = sixDdFileObject.getFile2();
@@ -824,13 +824,13 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 								sixDdDynamicValueObj.setN_UNIQUE_ID(createdUniqueCode);
 								sixDdDynamicValueObj.setN_FILE_ID(createdFileId);
 								sixDdDynamicFileRepo.save(sixDdDynamicValueObj);
-							} 
-							
+							}
+
 							// Update Entity
 							else if (sixddFileDynamicValueMode.equals("edit")) {
 								sixDdDynamicFileRepo.save(sixDdDynamicValueObj);
 							}
-							
+
 							// Delete
 							if (sixddFileDynamicValueId != null && sixddFileDynamicValueMode.equals("delete")) {
 								sixDdDynamicFileRepo.deleteById(sixddFileDynamicValueId);
