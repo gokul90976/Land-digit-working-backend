@@ -36,8 +36,17 @@ public interface LandDigitDataDivisionWiseRepo extends JpaRepository<LandDigitDa
             "           land.V_NAME_OF_SCHEME;", nativeQuery = true)
     List<Object[]> mainview();
 
+
+
+
+
+
+
     @Query(value = "SELECT V_NAME_OF_DIVISION FROM land_digit_data_division_wise WHERE V_CITY_OR_RURAL = :values", nativeQuery = true)
     List<String> getDivisionsByCityOrRural(@Param("values") String values);
+
+    @Query(value = "SELECT DISTINCT V_NAME_OF_DISTRICT FROM land_digit_data_division_wise WHERE V_CITY_OR_RURAL = :values", nativeQuery = true)
+    List<String> getDistrictsByCityOrRural(@Param("values") String values);
 
     @Query(value = "SELECT\n" +
             "    ld.V_NAME_OF_DIVISION AS Division,\n" +

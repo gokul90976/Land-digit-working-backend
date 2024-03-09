@@ -216,6 +216,8 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 
 			List<SixDdFileEntity> sixDdFileList = sisDdfileRepo.findByUniqueId(unique_Id);
 
+			System.out.println(sixDdFileList);
+
 			for (SixDdFileEntity sixDdFileEntity : sixDdFileList) {
 
 				Long file_id = sixDdFileEntity.getN_ID();
@@ -1342,6 +1344,9 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 	    return division.equals(data.getV_NAME_OF_DIVISION());
 	}
 
+	private List<String> fetchDistrictsByValue(String values) {
+		return landDigitDataDivisionWiseRepo.getDistrictsByCityOrRural(values);
+	}
 	
 	private List<String> fetchDivisionsByValue(String values) {
 	    List<String> divisions = landDigitDataDivisionWiseRepo.getDivisionsByCityOrRural(values);
@@ -1349,55 +1354,105 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 	}
 	
 	//Report Village Count
+//	@Override
+//	public List<LandDigitCountVillageViewV2> maincountvillageView(String types, String values) {
+//		List<Object[]> identityNoList = landDigitDataDivisionWiseRepo.maincountvillageView();
+//
+//		List<LandDigitCountVillageViewV2> resultArray = new ArrayList<LandDigitCountVillageViewV2>();
+//
+//		List<String> divisionsToInclude = fetchDivisionsByValue(values);
+//
+//		for (Object[] listData : identityNoList) {
+//			LandDigitCountVillageViewV2 iteratorObj = new LandDigitCountVillageViewV2();
+//
+//			iteratorObj.setV_NAME_OF_DIVISION(listData[0] != null ? listData[0].toString() : null);
+//			iteratorObj.setV_NAME_OF_CIRCLE(listData[1] != null ? listData[1].toString() : null);
+//			iteratorObj.setV_VILLAGE(listData[2] != null ? listData[2].toString() : null);
+//			iteratorObj.setLps_file_count(listData[3] != null ? listData[3].toString() : null);
+//			iteratorObj.setFour_one_count(listData[4] != null ? listData[4].toString() : null);
+//			iteratorObj.setSixdd_file_count(listData[5] != null ? listData[5].toString() : null);
+//			iteratorObj.setAward_file_count(listData[6] != null ? listData[6].toString() : null);
+//			iteratorObj.setUnique_Id(listData[7] != null ? listData[7].toString() : null);
+//
+//			String uniqueId = iteratorObj.getUnique_Id();
+//
+//		// call extend Acres Details
+//
+//			List<Object[]> acresDetails = landDigitDataDivisionWiseRepo.getExtendAcresDetails(uniqueId);
+//
+//			if(!acresDetails.isEmpty()) {
+//				Object[] acresDetail = acresDetails.get(0);
+//
+//				iteratorObj.setFourOneAcres((Double) acresDetail[0]);
+//				iteratorObj.setSixDDAcres((Double) acresDetail[1]);
+//				iteratorObj.setAwardAcres((Double) acresDetail[2]);
+//				iteratorObj.setLpsAcres((Double) acresDetail[3]);
+//				iteratorObj.setPossissiontakenOver((Double) acresDetail[4]);
+//				iteratorObj.setPossiosionNotTakenOver((Double) acresDetail[5]);
+//
+//			}
+//
+//
+//			if ("All".equals(types) ||
+//		            ("circle".equals(types) && dataMatchesCircleCountVillage(iteratorObj, values)) ||
+//		            ("division".equals(types) && dataMatchesDivisionCountVillage(iteratorObj, values)) ||
+//		            ("chief".equals(types) && divisionsToInclude.contains(iteratorObj.getV_NAME_OF_DIVISION()))) {
+//		            resultArray.add(iteratorObj);
+//		        }
+//		}
+//		return resultArray;
+//		}
+//
+
 	@Override
 	public List<LandDigitCountVillageViewV2> maincountvillageView(String types, String values) {
 		List<Object[]> identityNoList = landDigitDataDivisionWiseRepo.maincountvillageView();
 
 		List<LandDigitCountVillageViewV2> resultArray = new ArrayList<LandDigitCountVillageViewV2>();
-		
+
 		List<String> divisionsToInclude = fetchDivisionsByValue(values);
+		List<String> districtsToInclude = fetchDistrictsByValue(values);
 
 		for (Object[] listData : identityNoList) {
 			LandDigitCountVillageViewV2 iteratorObj = new LandDigitCountVillageViewV2();
 
 			iteratorObj.setV_NAME_OF_DIVISION(listData[0] != null ? listData[0].toString() : null);
 			iteratorObj.setV_NAME_OF_CIRCLE(listData[1] != null ? listData[1].toString() : null);
-			iteratorObj.setV_VILLAGE(listData[2] != null ? listData[2].toString() : null);
-			iteratorObj.setLps_file_count(listData[3] != null ? listData[3].toString() : null);
-			iteratorObj.setFour_one_count(listData[4] != null ? listData[4].toString() : null);
-			iteratorObj.setSixdd_file_count(listData[5] != null ? listData[5].toString() : null);
-			iteratorObj.setAward_file_count(listData[6] != null ? listData[6].toString() : null);
-			iteratorObj.setUnique_Id(listData[7] != null ? listData[7].toString() : null);
-			
+			iteratorObj.setV_NAME_OF_DISTRICT(listData[2] != null ? listData[2].toString() : null);
+			iteratorObj.setV_VILLAGE(listData[3] != null ? listData[3].toString() : null);
+			iteratorObj.setLps_file_count(listData[4] != null ? listData[4].toString() : null);
+			iteratorObj.setFour_one_count(listData[5] != null ? listData[5].toString() : null);
+			iteratorObj.setSixdd_file_count(listData[6] != null ? listData[6].toString() : null);
+			iteratorObj.setAward_file_count(listData[7] != null ? listData[7].toString() : null);
+			iteratorObj.setUnique_Id(listData[8] != null ? listData[8].toString() : null);
+
 			String uniqueId = iteratorObj.getUnique_Id();
-			
-		// call extend Acres Details
-			
+
+			// call extend Acres Details
+
 			List<Object[]> acresDetails = landDigitDataDivisionWiseRepo.getExtendAcresDetails(uniqueId);
-			
-			if(!acresDetails.isEmpty()) {
+
+			if (!acresDetails.isEmpty()) {
 				Object[] acresDetail = acresDetails.get(0);
-				
+
 				iteratorObj.setFourOneAcres((Double) acresDetail[0]);
 				iteratorObj.setSixDDAcres((Double) acresDetail[1]);
 				iteratorObj.setAwardAcres((Double) acresDetail[2]);
 				iteratorObj.setLpsAcres((Double) acresDetail[3]);
 				iteratorObj.setPossissiontakenOver((Double) acresDetail[4]);
 				iteratorObj.setPossiosionNotTakenOver((Double) acresDetail[5]);
-
 			}
-			
-			
+
 			if ("All".equals(types) ||
-		            ("circle".equals(types) && dataMatchesCircleCountVillage(iteratorObj, values)) ||
-		            ("division".equals(types) && dataMatchesDivisionCountVillage(iteratorObj, values)) ||
-		            ("chief".equals(types) && divisionsToInclude.contains(iteratorObj.getV_NAME_OF_DIVISION()))) {
-		            resultArray.add(iteratorObj);
-		        }
+					("circle".equals(types) && dataMatchesCircleCountVillage(iteratorObj, values)) ||
+					("division".equals(types) && dataMatchesDivisionCountVillage(iteratorObj, values)) ||
+					("district".equals(types) && districtsToInclude.contains(iteratorObj.getV_NAME_OF_DISTRICT())) ||
+					("chief".equals(types) && divisionsToInclude.contains(iteratorObj.getV_NAME_OF_DIVISION()))) {
+				resultArray.add(iteratorObj);
+			}
 		}
 		return resultArray;
-		}
-	
+	}
 	private boolean dataMatchesCircleCountVillage(LandDigitCountVillageViewV2 data, String circle) {
 	    return circle.equals(data.getV_NAME_OF_CIRCLE());
 	}

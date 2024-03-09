@@ -11,6 +11,8 @@ public class LandDigitCountVillageViewV2 {
 
     private String V_VILLAGE;
 
+    private String V_NAME_OF_DISTRICT;
+
     private String lps_file_count;
 
     private String four_one_count;
