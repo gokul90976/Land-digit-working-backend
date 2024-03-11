@@ -1410,7 +1410,7 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 	public List<LandDigitCountVillageViewV2> maincountvillageView(String types, String values) {
 		List<Object[]> identityNoList = landDigitDataDivisionWiseRepo.maincountvillageView();
 
-		List<LandDigitCountVillageViewV2> resultArray = new ArrayList<LandDigitCountVillageViewV2>();
+		List<LandDigitCountVillageViewV2> resultArray = new ArrayList<>();
 
 		List<String> divisionsToInclude = fetchDivisionsByValue(values);
 		List<String> districtsToInclude = fetchDistrictsByValue(values);
@@ -1445,6 +1445,8 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 				iteratorObj.setPossiosionNotTakenOver((Double) acresDetail[5]);
 			}
 
+			// Here you can access the district directly from the iteratorObj
+			// without needing to pass it as a parameter
 			if ("All".equals(types) ||
 					("circle".equals(types) && dataMatchesCircleCountVillage(iteratorObj, values)) ||
 					("division".equals(types) && dataMatchesDivisionCountVillage(iteratorObj, values)) ||
