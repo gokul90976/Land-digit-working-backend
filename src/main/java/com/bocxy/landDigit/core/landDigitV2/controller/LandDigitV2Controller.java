@@ -137,6 +137,7 @@ public class LandDigitV2Controller {
         String types = json.getAsString("types");
         String values = json.getAsString("values");
         List<LandDigitListViewV2> listData = landDigitV2DetailsService.mainView(types, values);
+
         return listData;
     }
     

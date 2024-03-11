@@ -21,7 +21,9 @@ public interface LandDigitDataDivisionWiseRepo extends JpaRepository<LandDigitDa
             "           SUM(award.V_TOTAL_EXTENT) AS V_TOTAL_EXTENT,\n" +
             "           SUM(award.V_PHO_TOTAL_EXTENT) AS V_PHO_TOTAL_EXTENT,\n" +
             "           SUM(award.V_PNHO_TOTAL_EXTENT) AS V_PNHO_TOTAL_EXTENT,\n" +
-            "           SUM(award.V_PHO_SCHEME_TOTAL_EXTENT) AS V_PHO_SCHEME_TOTAL_EXTENT\n" +
+            "           SUM(award.V_PHO_SCHEME_TOTAL_EXTENT) AS V_PHO_SCHEME_TOTAL_EXTENT,\n" +
+            "           (SELECT SUM(V_TOTAL_EXTENT) FROM landdigit_db.6dd_file WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS total_extent_6dd,\n" +
+            "           (SELECT SUM(V_TOTAL_EXTENT) FROM landdigit_db.4_one WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS total_extent_4_one\n" +
             "           \n" +
             "           FROM\n" +
             "           award_file AS award\n" +
@@ -51,6 +53,7 @@ public interface LandDigitDataDivisionWiseRepo extends JpaRepository<LandDigitDa
     @Query(value = "SELECT\n" +
             "    ld.V_NAME_OF_DIVISION AS Division,\n" +
             "    ld.V_NAME_OF_CIRCLE AS Circle,\n" +
+            "    ld.V_NAME_OF_DISTRICT AS District,\n" + // Include District
             "    ldf.V_NAME_OF_VILLAGE AS Village,\n" +
             "    COUNT(DISTINCT ldf.N_FILE_ID) AS lpscount,\n" +
             "    COUNT(DISTINCT fdf.N_FILE_ID) AS fouronecount,\n" +
@@ -68,13 +71,11 @@ public interface LandDigitDataDivisionWiseRepo extends JpaRepository<LandDigitDa
             "    WHERE v_village IS NOT NULL\n" +
             ") fdf ON ld.N_UNIQUE_ID = fdf.N_UNIQUE_ID AND ldf.V_NAME_OF_VILLAGE = fdf.v_village\n" +
             "\n" +
-            "\n" +
             "LEFT JOIN (\n" +
             "    SELECT DISTINCT N_UNIQUE_ID, v_village, N_FILE_ID\n" +
             "    FROM 6dd_dynamic_file\n" +
             "    WHERE v_village IS NOT NULL\n" +
             ") ddf ON ld.N_UNIQUE_ID = ddf.N_UNIQUE_ID AND ldf.V_NAME_OF_VILLAGE = ddf.v_village\n" +
-            "\n" +
             "\n" +
             "LEFT JOIN (\n" +
             "    SELECT DISTINCT N_UNIQUE_ID, v_village, N_FILE_ID\n" +
@@ -84,20 +85,24 @@ public interface LandDigitDataDivisionWiseRepo extends JpaRepository<LandDigitDa
             "\n" +
             "GROUP BY\n" +
             "    ld.V_NAME_OF_DIVISION,\n" +
+            "    ld.V_NAME_OF_CIRCLE,\n" +
+            "    ld.V_NAME_OF_DISTRICT,\n" +
             "    ldf.V_NAME_OF_VILLAGE;\n", nativeQuery = true)
     List<Object[]> maincountvillageView();
+
 
     @Query(value = "SELECT\n" +
             "    COALESCE(ld.N_UNIQUE_ID, lps.N_UNIQUE_ID, one.N_UNIQUE_ID, award.N_UNIQUE_ID) AS Unique_id,\n" +
             "    ld.V_NAME_OF_DIVISION AS Division,\n" +
             "    ld.V_NAME_OF_CIRCLE AS Circle,\n" +
             "    ld.V_NAME_OF_SCHEME AS Scheme_Name,\n" +
+            "    ld.V_NAME_OF_DISTRICT AS District,\n" +
             "    lps.V_NAME_OF_VILLAGE AS Lps_village,\n" +
             "    one.v_village AS `4one_village`,\n" +
             "    sixdd.v_village AS `6dd_village`,\n" +
             "    award.v_village AS `award_village`\n" +
             "FROM\n" +
-            "    (SELECT DISTINCT N_UNIQUE_ID, V_NAME_OF_DIVISION, V_NAME_OF_SCHEME,V_NAME_OF_CIRCLE FROM land_digit_data) ld\n" +
+            "    (SELECT DISTINCT N_UNIQUE_ID, V_NAME_OF_DIVISION, V_NAME_OF_SCHEME, V_NAME_OF_CIRCLE, V_NAME_OF_DISTRICT FROM land_digit_data) ld\n" +
             "LEFT JOIN\n" +
             "    (SELECT DISTINCT N_UNIQUE_ID, V_NAME_OF_VILLAGE FROM lps_village) lps\n" +
             "    ON ld.N_UNIQUE_ID = lps.N_UNIQUE_ID\n" +

@@ -11,6 +11,8 @@ public class LandDigitListVillageViewV2 {
     
     private String V_NAME_OF_CIRCLE;
 
+    private String V_NAME_OF_DISTRICT;
+
     private String V_NAME_OF_SCHEME;
 
     private String lps_village;

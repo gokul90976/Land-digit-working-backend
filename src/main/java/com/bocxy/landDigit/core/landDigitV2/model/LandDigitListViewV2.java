@@ -33,4 +33,9 @@ public class LandDigitListViewV2 {
 
     private String award_file_count;
 
+    private String sixdd_total_extent;
+
+    private String fourone_total_extent;
+
+
 }

@@ -1310,8 +1310,8 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 	public List<LandDigitListViewV2> mainView(String types, String values) {
 		List<Object[]> identityNoList = landDigitDataDivisionWiseRepo.mainview();
 
-		List<LandDigitListViewV2> resultArray = new ArrayList<LandDigitListViewV2>();
-		
+		List<LandDigitListViewV2> resultArray = new ArrayList<>();
+
 		List<String> divisionsToInclude = fetchDivisionsByValue(values);
 
 		for (Object[] listData : identityNoList) {
@@ -1325,16 +1325,18 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 			iteratorObj.setV_PHO_TOTAL_EXTENT(listData[6] != null ? listData[6].toString() : null);
 			iteratorObj.setV_PNHO_TOTAL_EXTENT(listData[7] != null ? listData[7].toString() : null);
 			iteratorObj.setV_PHO_SCHEME_TOTAL_EXTENT(listData[8] != null ? listData[8].toString() : null);
-			
+			iteratorObj.setSixdd_total_extent(listData[9] != null ? listData[9].toString() : null);
+			iteratorObj.setFourone_total_extent(listData[10] != null ? listData[10].toString() : null);
+
 			if ("All".equals(types) ||
-		            ("circle".equals(types) && dataMatchesCircle(iteratorObj, values)) ||
-		            ("division".equals(types) && dataMatchesDivision(iteratorObj, values))
-		            || ("chief".equals(types) && divisionsToInclude.contains(iteratorObj.getV_NAME_OF_DIVISION()))) {
-		            resultArray.add(iteratorObj);
-		        }
+					("circle".equals(types) && dataMatchesCircle(iteratorObj, values)) ||
+					("division".equals(types) && dataMatchesDivision(iteratorObj, values)) ||
+					("chief".equals(types) && divisionsToInclude.contains(iteratorObj.getV_NAME_OF_DIVISION()))) {
+				resultArray.add(iteratorObj);
+			}
 		}
 		return resultArray;
-		}
+	}
 
 	private boolean dataMatchesCircle(LandDigitListViewV2 data, String circle) {
 	    return circle.equals(data.getV_NAME_OF_CIRCLE());
@@ -1481,6 +1483,7 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 			iteratorObj.setFour_one_village(listData[5] != null ? listData[5].toString() : null);
 			iteratorObj.setSixdd_village(listData[6] != null ? listData[6].toString() : null);
 			iteratorObj.setAward_village(listData[7] != null ? listData[7].toString() : null);
+			iteratorObj.setV_NAME_OF_DISTRICT(listData[8] !=null ?listData[8].toString():null);
 			if ("All".equals(types) ||
 		            ("circle".equals(types) && dataMatchesCircleListVillage(iteratorObj, values)) ||
 		            ("division".equals(types) && dataMatchesDivisionListVillage(iteratorObj, values))
