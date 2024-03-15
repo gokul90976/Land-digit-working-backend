@@ -44,4 +44,9 @@ public class FourOneDynamicFileEntity {
     @Transient
     private String mode;
 
+    //
+    @Column(name = "SerialNumber")
+    private Long SerialNumber;
+
+
 }

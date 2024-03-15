@@ -162,33 +162,7 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 			LandDigitDataEntity value = landDigitDataEntity.get();
 			landDigitAllDataResponse.setLandDigitDataEntity(value);
 
-			// LPS Second Tab
 
-//			List<LPSFileEntity> lpsFileList = lPSFileRepo.findByUniqueId(unique_Id);
-//
-//			for (LPSFileEntity lpsFileEntity : lpsFileList) {
-//				Long file_id = lpsFileEntity.getN_ID();
-//				String file_name = lpsFileEntity.getV_FILE_NAME();
-//
-//				// LPS Dynamic Village
-//				List<LPSVillageEntity> lpsVillageDetails = lPSVillageRepo.getDataUniqueId(unique_Id, file_id);
-//				lpsFileEntity.setLpsVillageDetails(lpsVillageDetails);
-//
-//				// LPS Dynamic Other Files
-//				List<LPSFileDynamicValueEntity> lpsDynamicValuesDetails = lpsFileDynamicValueRepo
-//						.getByUniqueId(unique_Id, file_id);
-//				lpsFileEntity.setLpsFileDynamicValuesDetails(lpsDynamicValuesDetails);
-//
-//				// LPS Dynamic Other Details
-//				List<DynamicValueEntity> dynamicValuesDetails = dynamicValueRepo.getByUniqueId(unique_Id, file_id,
-//						file_name);
-//				lpsFileEntity.setDynamicValuesDetails(dynamicValuesDetails);
-//
-//			}
-//
-//			landDigitAllDataResponse.setLpsTabDetails(lpsFileList);
-
-			// 4(1) Third Tab
 
 			List<FourOneEntity> fouroneFileList = fourOneEntityRepo.findByUniqueId(unique_Id);
 
@@ -368,246 +342,29 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 				landDigitv2MainRepo.deleteById(uniqueCode);
 			}
 
-//			// LPS Second Tab Save Update Delete
-//			List<LPSFileEntity> lpsFileDeatils = saveModel.getLpsTabDetails();
-//
-//			if (lpsFileDeatils != null) {
-//				for (LPSFileEntity lpsObject : lpsFileDeatils) {
-//
-//					String lpsMode = lpsObject.getMode();
-//					Long lpsFileId = lpsObject.getN_ID();
-//
-//                    // File Upload
-//                    if (!(lpsObject.getFile() == null)) {
-//                        String base64FileData = lpsObject.getFile();
-//                        byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
-//                        String generatedFileName = lpsObject.getV_FILE_NAME();
-//                        String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
-//						String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
-//						String filepath = bucketUrl + uniqueFileName;
-//						byte[] fileBytes = decodedFileData;
-//						AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
-//						S3Client s3Client = S3Client.builder()
-//								.region(Region.US_EAST_1)
-//								.credentialsProvider(() -> credentials)
-//								.build();
-//						PutObjectRequest request = PutObjectRequest.builder()
-//								.bucket("tnhb-land-docs")
-//								.key(uniqueFileName)
-//								.build();
-//						PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
-//						lpsObject.setV_FILE_NAME(generatedFileName);
-//						lpsObject.setV_FILE_PATH(filepath);
-//                    }
-//
-//					// Save Entity
-//					if (lpsFileId == null && lpsMode.equals("create")) {
-//						lpsObject.setN_UNIQUE_ID(createdUniqueCode);
-//						LPSFileEntity savedData = lPSFileRepo.save(lpsObject);
-//						createdFileId = savedData.getN_ID();
-//						createdFileName = savedData.getV_FILE_NAME();
-//						}
-//
-//					// Update Entity
-//					else if (lpsMode.equals("edit")) {
-//						lPSFileRepo.save(lpsObject);
-//					}
-//
-//					// Delete
-//					if (lpsFileId != null && lpsMode.equals("delete")) {
-//						lPSFileRepo.deleteById(lpsFileId);
-//					}
-//
-//					// LPS Second Tab File Village Save Update Delete
-//					List<LPSVillageEntity> lpsVillageList = lpsObject.getLpsVillageDetails();
-//
-//					if (lpsVillageList != null) {
-//
-//						for (LPSVillageEntity lpsVillageObj : lpsVillageList) {
-//							String villageMode = lpsVillageObj.getMode();
-//							Long villageId = lpsVillageObj.getN_ID();
-//
-//							// Save Entity
-//							if (villageId == null && villageMode.equals("create")) {
-//								lpsVillageObj.setN_UNIQUE_ID(createdUniqueCode);
-//								lpsVillageObj.setN_FILE_ID(createdFileId);
-//								lPSVillageRepo.save(lpsVillageObj);
-//								}
-//
-//							// Update Entity
-//							else if ( villageMode.equals("edit")) {
-//								lPSVillageRepo.save(lpsVillageObj);
-//							}
-//
-//							// Delete
-//							if (villageId != null && villageMode.equals("delete")) {
-//								lPSVillageRepo.deleteById(villageId);
-//							}
-//						}
-//
-//					} else {
-//					}
-//
-//					// LPS Second Tab Dynamic values Save Update Delete
-//
-//					List<DynamicValueEntity> dynamicValueList = lpsObject.getDynamicValuesDetails();
-//
-//					if (dynamicValueList != null) {
-//
-//						for (DynamicValueEntity dynamicValueObj : dynamicValueList) {
-//							String dynamicvalueMode = dynamicValueObj.getMode();
-//							Long dynamicvalueId = dynamicValueObj.getN_ID();
-//
-//							// Save Entity
-//							if (dynamicvalueId == null && dynamicvalueMode.equals("create")) {
-//								dynamicValueObj.setN_UNIQUE_ID(createdUniqueCode);
-//								dynamicValueObj.setN_FILE_ID(createdFileId);
-//								dynamicValueObj.setV_FILE_NAME(createdFileName);
-//								dynamicValueRepo.save(dynamicValueObj);
-//								}
-//
-//							// Update Entity
-//							else if (dynamicvalueMode.equals("edit")) {
-//								dynamicValueRepo.save(dynamicValueObj);
-//							}
-//
-//							// Delete
-//							if ( dynamicvalueId != null &&  dynamicvalueMode.equals("delete")) {
-//								dynamicValueRepo.deleteById(dynamicvalueId);
-//							}
-//						}
-//
-//					} else {
-//
-//					}
-//
-//					// LPS Second Tab Dynamic Files Save Update Delete
-//
-//					List<LPSFileDynamicValueEntity> lPSFileDynamicValueList = lpsObject
-//							.getLpsFileDynamicValuesDetails();
-//
-//					if (lPSFileDynamicValueList != null) {
-//
-//						for (LPSFileDynamicValueEntity lPSFileDynamicValueObj : lPSFileDynamicValueList) {
-//							String lPSFileDynamicValueMode = lPSFileDynamicValueObj.getMode();
-//							Long lPSFileDynamicValueId = lPSFileDynamicValueObj.getN_ID();
-//
-//                            // File Upload
-//                            if (!(lPSFileDynamicValueObj.getFile() == null)) {
-//                                String base64FileData = lPSFileDynamicValueObj.getFile();
-//                                byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
-//                                String generatedFileName = lPSFileDynamicValueObj.getV_FILE_NAME();
-//                                String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
-//								String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
-//								String filepath = bucketUrl + uniqueFileName;
-//								byte[] fileBytes = decodedFileData;
-//								AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
-//								S3Client s3Client = S3Client.builder()
-//										.region(Region.US_EAST_1)
-//										.credentialsProvider(() -> credentials)
-//										.build();
-//								PutObjectRequest request = PutObjectRequest.builder()
-//										.bucket("tnhb-land-docs")
-//										.key(uniqueFileName)
-//										.build();
-//								PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
-//								lPSFileDynamicValueObj.setV_FILE_NAME(generatedFileName);
-//                                lPSFileDynamicValueObj.setV_FILE_PATH(filepath);
-//                            }
-//
-//							// Save Entity
-//							if (lPSFileDynamicValueId == null && lPSFileDynamicValueMode.equals("create")) {
-//								lPSFileDynamicValueObj.setN_UNIQUE_ID(createdUniqueCode);
-//								lPSFileDynamicValueObj.setN_FILE_ID(createdFileId);
-//								lpsFileDynamicValueRepo.save(lPSFileDynamicValueObj);
-//								}
-//
-//							// Update Entity
-//							else if (lPSFileDynamicValueMode.equals("edit")) {
-//								lpsFileDynamicValueRepo.save(lPSFileDynamicValueObj);
-//							}
-//
-//							// Delete
-//							if (lPSFileDynamicValueId != null &&  lPSFileDynamicValueMode.equals("delete")) {
-//								lpsFileDynamicValueRepo.deleteById(lPSFileDynamicValueId);
-//							}
-//						}
-//
-//					} else {
-//
-//					}
-//
-//				}
-//			} else {
-//
-//			}
 
-			// !Third Tab start here
 			List<FourOneEntity> fourOneDeatils = saveModel.getFouroneTabDetails();
 
 			if (fourOneDeatils != null) {
 
+				int serialNumber = 1;
 				for (int i = 0; i < fourOneDeatils.size(); i++) {
 					FourOneEntity fourOneObject = fourOneDeatils.get(i);
 					String fouroneMode = fourOneObject.getMode();
 					Long fouroneFileId = fourOneObject.getN_ID();
 					
-                    // File Upload
-//                    if (!(fourOneObject.getFile1() == null)) {
-//                        String base64FileData = fourOneObject.getFile1();
-//                        byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
-//                        String generatedFileName = fourOneObject.getV_FILE_1_FILENAME();
-//                        String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
-//						String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
-//						String filepath = bucketUrl + uniqueFileName;
-//						byte[] fileBytes = decodedFileData;
-//						AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
-//						S3Client s3Client = S3Client.builder()
-//								.region(Region.US_EAST_1)
-//								.credentialsProvider(() -> credentials)
-//								.build();
-//						PutObjectRequest request = PutObjectRequest.builder()
-//								.bucket("tnhb-land-docs")
-//								.key(uniqueFileName)
-//								.build();
-//						PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
-//						fourOneObject.setV_FILE_1_FILENAME(generatedFileName);
-//                        fourOneObject.setV_FILE_1_FILEPATH(filepath);
-//                    }
-//
-//                    if (!(fourOneObject.getFile2() == null)) {
-//                        String base64FileData = fourOneObject.getFile2();
-//                        byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
-//                        String generatedFileName = fourOneObject.getV_FILE_2_FILENAME();
-//                        String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
-//						String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
-//						String filepath = bucketUrl + uniqueFileName;
-//						byte[] fileBytes = decodedFileData;
-//						AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
-//						S3Client s3Client = S3Client.builder()
-//								.region(Region.US_EAST_1)
-//								.credentialsProvider(() -> credentials)
-//								.build();
-//						PutObjectRequest request = PutObjectRequest.builder()
-//								.bucket("tnhb-land-docs")
-//								.key(uniqueFileName)
-//								.build();
-//						PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
-//						fourOneObject.setV_FILE_2_FILENAME(generatedFileName);
-//                        fourOneObject.setV_FILE_2_FILEPATH(filepath);
-//                    }
 
-
-                    // Save Entity
 					if (fouroneFileId == null && fouroneMode.equals("create")) {
                         fourOneObject.setN_UNIQUE_ID(createdUniqueCode);
 						FourOneEntity savedData = fourOneEntityRepo.save(fourOneObject);
 						createdFileId = savedData.getN_ID();
 						createdFileName = savedData.getV_FILE_1_FILENAME();
+
                     }
 
 					// Update Entity
 					else if (fouroneMode.equals("edit")) {
+
 						fourOneEntityRepo.save(fourOneObject);
 					}
 
@@ -655,33 +412,12 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 							String fouroneFileDynamicValueMode = fourOneDynamicValueObj.getMode();
 							Long fouroneFileDynamicValueId = fourOneDynamicValueObj.getN_ID();
 
-                            // File Upload        
-//							if (!(fourOneDynamicValueObj.getFile() == null)) {
-//								String base64FileData = fourOneDynamicValueObj.getFile();
-//                                byte[] decodedFileData = Base64.getDecoder().decode(base64FileData);
-//                                String generatedFileName = fourOneDynamicValueObj.getV_FILE_NAME();
-//                                String uniqueFileName = UUID.randomUUID().toString() + "_" + generatedFileName;
-//								String bucketUrl = "http://tnhb-land-docs.s3-website-us-east-1.amazonaws.com/";
-//								String filepath = bucketUrl + uniqueFileName;
-//								byte[] fileBytes = decodedFileData;
-//								AwsBasicCredentials credentials = AwsBasicCredentials.create("AKIAR4WRUXSBWFW47VVO", "iG602vjmGQXcs8CCk2NHyWaVGyfHMcN3eGhVsygl");
-//								S3Client s3Client = S3Client.builder()
-//										.region(Region.US_EAST_1)
-//										.credentialsProvider(() -> credentials)
-//										.build();
-//								PutObjectRequest request = PutObjectRequest.builder()
-//										.bucket("tnhb-land-docs")
-//										.key(uniqueFileName)
-//										.build();
-//								PutObjectResponse response = s3Client.putObject(request, RequestBody.fromBytes(fileBytes));
-//								fourOneDynamicValueObj.setV_FILE_NAME(generatedFileName);
-//                                fourOneDynamicValueObj.setV_FILE_PATH(filepath);
-//                            }
 
 							// Save Entity
 							if (fouroneFileDynamicValueId == null && fouroneFileDynamicValueMode.equals("create")) {
 								fourOneDynamicValueObj.setN_UNIQUE_ID(createdUniqueCode);
 								fourOneDynamicValueObj.setN_FILE_ID(createdFileId);
+								fourOneDynamicValueObj.setSerialNumber(createdFileId);
                                 fourOneDynamicFileEntityRepo.save(fourOneDynamicValueObj);
 							} 
 							

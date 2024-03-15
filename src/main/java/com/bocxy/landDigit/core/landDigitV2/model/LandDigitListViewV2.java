@@ -11,6 +11,8 @@ public class LandDigitListViewV2 {
 
     private String V_NAME_OF_DIVISION;
 
+    private  String V_NAME_OF_VILLAGE;
+
 //    private String V_NAME_OF_VILLAGE;
 
     private String V_NAME_OF_DISTRICT;

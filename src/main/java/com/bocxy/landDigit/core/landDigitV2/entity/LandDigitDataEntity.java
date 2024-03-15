@@ -28,6 +28,10 @@ public class LandDigitDataEntity {
     @Column(name = "V_NAME_OF_DISTRICT")
     private String V_NAME_OF_DISTRICT;
 
+
+    @Column(name = "V_NAME_OF_VILLAGE")
+    private String V_VILLAGE;
+
     @Column(name = "V_NAME_OF_SCHEME")
     private String V_NAME_OF_SCHEME;
 

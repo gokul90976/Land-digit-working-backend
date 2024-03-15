@@ -86,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:4200","http://tnhb-landdigit.s3-website-us-east-1.amazonaws.com","http://land-digit.tnhb.in","http:// 192.168.1.13"));
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200","http://tnhb-landdigit.s3-website-us-east-1.amazonaws.com","http://land-digit.tnhb.in","http:// 192.168.1.13","http://localhost:55402"));
         config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
         config.setAllowCredentials(true);

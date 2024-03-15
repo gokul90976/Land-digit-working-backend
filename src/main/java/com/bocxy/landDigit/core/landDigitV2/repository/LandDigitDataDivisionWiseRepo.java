@@ -18,6 +18,7 @@ public interface LandDigitDataDivisionWiseRepo extends JpaRepository<LandDigitDa
             "           land.V_NAME_OF_DIVISION,\n" +
             "           land.V_NAME_OF_DISTRICT,\n" +
             "           land.V_NAME_OF_SCHEME,\n" +
+            "           land.V_NAME_OF_VILLAGE,\n" + // Added village name
             "           SUM(award.V_TOTAL_EXTENT) AS V_TOTAL_EXTENT,\n" +
             "           SUM(award.V_PHO_TOTAL_EXTENT) AS V_PHO_TOTAL_EXTENT,\n" +
             "           SUM(award.V_PNHO_TOTAL_EXTENT) AS V_PNHO_TOTAL_EXTENT,\n" +
@@ -35,7 +36,8 @@ public interface LandDigitDataDivisionWiseRepo extends JpaRepository<LandDigitDa
             "           land.V_NAME_OF_CIRCLE,\n" +
             "           land.V_NAME_OF_DISTRICT,\n" +
             "           land.V_NAME_OF_DIVISION,\n" +
-            "           land.V_NAME_OF_SCHEME;", nativeQuery = true)
+            "           land.V_NAME_OF_SCHEME,\n" +
+            "           land.V_NAME_OF_VILLAGE;", nativeQuery = true)
     List<Object[]> mainview();
 
 
