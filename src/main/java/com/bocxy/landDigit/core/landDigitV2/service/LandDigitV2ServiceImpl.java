@@ -1057,12 +1057,13 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 			iteratorObj.setV_NAME_OF_DIVISION(listData[2] != null ? listData[2].toString() : null);
 			iteratorObj.setV_NAME_OF_DISTRICT(listData[3] != null ? listData[3].toString() : null);
 			iteratorObj.setV_NAME_OF_SCHEME(listData[4] != null ? listData[4].toString() : null);
-			iteratorObj.setV_TOTAL_EXTENT(listData[5] != null ? listData[5].toString() : null);
-			iteratorObj.setV_PHO_TOTAL_EXTENT(listData[6] != null ? listData[6].toString() : null);
-			iteratorObj.setV_PNHO_TOTAL_EXTENT(listData[7] != null ? listData[7].toString() : null);
-			iteratorObj.setV_PHO_SCHEME_TOTAL_EXTENT(listData[8] != null ? listData[8].toString() : null);
-			iteratorObj.setSixdd_total_extent(listData[9] != null ? listData[9].toString() : null);
-			iteratorObj.setFourone_total_extent(listData[10] != null ? listData[10].toString() : null);
+			iteratorObj.setV_NAME_OF_VILLAGE(listData[5] != null ? listData[5].toString() : null);
+			iteratorObj.setV_TOTAL_EXTENT(listData[6] != null ? listData[6].toString() : null);
+			iteratorObj.setV_PHO_TOTAL_EXTENT(listData[7] != null ? listData[7].toString() : null);
+			iteratorObj.setV_PNHO_TOTAL_EXTENT(listData[8] != null ? listData[8].toString() : null);
+			iteratorObj.setV_PHO_SCHEME_TOTAL_EXTENT(listData[9] != null ? listData[9].toString() : null);
+			iteratorObj.setSixdd_total_extent(listData[10] != null ? listData[10].toString() : null);
+			iteratorObj.setFourone_total_extent(listData[11] != null ? listData[11].toString() : null);
 
 			if ("All".equals(types) ||
 					("circle".equals(types) && dataMatchesCircle(iteratorObj, values)) ||
