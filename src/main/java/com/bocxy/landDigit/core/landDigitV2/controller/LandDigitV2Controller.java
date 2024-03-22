@@ -4,20 +4,20 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bocxy.landDigit.core.landDigitV2.entity.AwardFileEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.AwsConfig;
+import com.bocxy.landDigit.core.landDigitV2.entity.*;
+import com.bocxy.landDigit.core.landDigitV2.repository.DivisionlistRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Circle;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bocxy.landDigit.core.common.ResponseDo;
-import com.bocxy.landDigit.core.landDigitV2.entity.CountEntityV2;
-import com.bocxy.landDigit.core.landDigitV2.entity.LandDigitMediaEntity;
 import com.bocxy.landDigit.core.landDigitV2.model.LandDigitCountVillageViewV2;
 import com.bocxy.landDigit.core.landDigitV2.model.LandDigitListViewV2;
 import com.bocxy.landDigit.core.landDigitV2.model.LandDigitListVillageViewV2;
@@ -34,7 +34,8 @@ public class LandDigitV2Controller {
     @Autowired
     LandDigitV2Service landDigitV2DetailsService;
 
-
+    @Autowired
+    DivisionlistRepo divisionlist;
     @Autowired
     ResponseDo responseDo;
 
@@ -279,6 +280,46 @@ public class LandDigitV2Controller {
     public AwsConfig getAwsConfig() {
         return landDigitV2DetailsService.getAwsConfig();
     }
+
+
+    @GetMapping("/Circle")
+    public List<String> getAllDistricts() {
+        return divisionlist.findAll().stream()
+                .map(DivisionList::getCircle)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/Division/{Circle}")
+    public List<String> getDivisionsByCircle(@PathVariable("Circle") String circle) {
+        return divisionlist.findByCircle(circle).stream()
+                .map(DivisionList::getDivision)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+    @GetMapping("/District/{Circle}/{Division}")
+    public List<String> getVillagesByCircleAndDivision(
+            @PathVariable("Circle") String circle,
+            @PathVariable("Division") String division) {
+        return divisionlist.findByCircleAndDivision(circle, division).stream()
+                .map(DivisionList::getDistrict)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+
+    @GetMapping("/Village/{Circle}/{Division}/{District}")
+    public List<String> getVillagesByCircleAndDivisionAndDistrict(
+            @PathVariable("Circle") String circle,
+            @PathVariable("Division") String division,
+            @PathVariable("District") String district) {
+        return divisionlist.findByCircleAndDivisionAndDistrict(circle, division, district).stream()
+                .map(DivisionList::getVillage)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+
 
 
 }

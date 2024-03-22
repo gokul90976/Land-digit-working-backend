@@ -12,6 +12,8 @@ import com.bocxy.landDigit.core.landDigitV2.entity.LandDigitDataDivisionWiseEnti
 @Repository
 public interface LandDigitDataDivisionWiseRepo extends JpaRepository<LandDigitDataDivisionWiseEntity,Long> {
 
+
+
     @Query(value = "SELECT\n" +
             "           award.N_UNIQUE_ID,\n" +
             "           land.V_NAME_OF_CIRCLE,\n" +
@@ -24,7 +26,10 @@ public interface LandDigitDataDivisionWiseRepo extends JpaRepository<LandDigitDa
             "           SUM(award.V_PNHO_TOTAL_EXTENT) AS V_PNHO_TOTAL_EXTENT,\n" +
             "           SUM(award.V_PHO_SCHEME_TOTAL_EXTENT) AS V_PHO_SCHEME_TOTAL_EXTENT,\n" +
             "           (SELECT SUM(V_TOTAL_EXTENT) FROM landdigit_db.6dd_file WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS total_extent_6dd,\n" +
-            "           (SELECT SUM(V_TOTAL_EXTENT) FROM landdigit_db.4_one WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS total_extent_4_one\n" +
+            "           (SELECT SUM(V_TOTAL_EXTENT) FROM landdigit_db.4_one WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS total_extent_4_one,\n" +
+            "           (SELECT SUM(V_AMOUNT) FROM landdigit_db.award_court_deposit_payment WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS courtcase,\n"+
+            "           (SELECT SUM(V_AMOUNT) FROM landdigit_db.award_direct_payment WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS direct,\n"+
+            "           (SELECT SUM(V_AMOUNT) FROM landdigit_db.award_revenue_payment WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS revenue\n"+
             "           \n" +
             "           FROM\n" +
             "           award_file AS award\n" +
@@ -39,8 +44,6 @@ public interface LandDigitDataDivisionWiseRepo extends JpaRepository<LandDigitDa
             "           land.V_NAME_OF_SCHEME,\n" +
             "           land.V_NAME_OF_VILLAGE;", nativeQuery = true)
     List<Object[]> mainview();
-
-
 
 
 

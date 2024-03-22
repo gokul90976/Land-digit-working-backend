@@ -12,19 +12,19 @@ public class DivisionList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="Division")
+
     private String Division;
 
-    @Column(name="District")
+
     private String District;
 
-    @Column(name="Circle")
-    private String Circle;
 
-    @Column(name="City")
+    private String circle;
+
+
     private String City;
 
 
-    @Column(name="Village")
+
     private String Village;
 }

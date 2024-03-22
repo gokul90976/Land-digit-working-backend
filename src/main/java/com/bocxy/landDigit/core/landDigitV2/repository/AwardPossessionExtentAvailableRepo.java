@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.bocxy.landDigit.core.landDigitV2.entity.AwardPossessionExtentAvailableEntity;
 
-@Repository
+
+
 public interface AwardPossessionExtentAvailableRepo extends JpaRepository<AwardPossessionExtentAvailableEntity,Long> {
 	
 	@Query(value = "SELECT * from award_possession_extent_available WHERE N_UNIQUE_ID= ?1 AND N_FILE_ID=?2",nativeQuery = true)

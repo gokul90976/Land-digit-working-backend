@@ -32,6 +32,8 @@ public class AwardOtherFileEntity {
     @Column(name = "V_EXTENT")
     private String V_EXTENT;
 
+
+
     @Transient
     private String mode;
 

@@ -5,12 +5,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.*;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Transient;
 import javax.transaction.Transactional;
 
 import com.bocxy.landDigit.core.landDigitV2.entity.*;
-import org.hibernate.cfg.Environment;
+import com.bocxy.landDigit.core.landDigitV2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -22,36 +21,6 @@ import com.bocxy.landDigit.core.landDigitV2.model.LandDigitListVillageViewV2;
 import com.bocxy.landDigit.core.landDigitV2.model.LandDigitV2ResponseModel;
 import com.bocxy.landDigit.core.landDigitV2.model.LandDigitV2SaveModel;
 import com.bocxy.landDigit.core.landDigitV2.model.LastTabSaveDetails;
-import com.bocxy.landDigit.core.landDigitV2.repository.AwardCourtDepositPaymentRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.AwardDirectPaymentRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.AwardFileRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.AwardOtherFileRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.AwardPossessionExtentAvailableRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.AwardPossessionNotTakenOverRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.AwardPossessionTakenOverRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.AwardRevenuePaymentRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.CountEntityV2Repo;
-import com.bocxy.landDigit.core.landDigitV2.repository.DynamicValueRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.FourOneDynamicFileEntityRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.FourOneEntityRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.LPSFileDynamicValueRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.LPSFileRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.LPSVillageRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.LandDigitDataDivisionWiseRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.LandDigitMediaRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.LandDigitv2MainRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.Left4One6DDRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.Left6DDAwardRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.LeftOverLPS4OneRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.SisDdfileRepo;
-import com.bocxy.landDigit.core.landDigitV2.repository.SixDdDynamicFileRepo;
-
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.core.sync.RequestBody;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 @Service
 public class LandDigitV2ServiceImpl implements LandDigitV2Service {
@@ -125,6 +94,8 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 	@Autowired
 	LandDigitMediaRepo landDigitMediaRepo;
 
+	@Autowired
+	DivisionlistRepo divisionlist;
 
 
 	@Value("${aws.accessKeyId}")
@@ -997,6 +968,141 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 
 				}
 
+
+
+				// LPS Second Tab Save Update Delete
+				List<LPSFileEntity> lpsFileDeatils = saveModel.getLpsTabDetails();
+
+				if (lpsFileDeatils != null) {
+					for (LPSFileEntity lpsObject : lpsFileDeatils) {
+
+						String lpsMode = lpsObject.getMode();
+						Long lpsFileId = lpsObject.getN_ID();
+
+
+
+
+						// Save Entity
+						if (lpsFileId == null && lpsMode.equals("create")) {
+							lpsObject.setN_UNIQUE_ID(createdUniqueCode);
+							LPSFileEntity savedData = lPSFileRepo.save(lpsObject);
+							createdFileId = savedData.getN_ID();
+							createdFileName = savedData.getV_FILE_NAME();
+						}
+
+						// Update Entity
+						else if (lpsMode.equals("edit")) {
+							lPSFileRepo.save(lpsObject);
+						}
+
+						// Delete
+						if (lpsFileId != null && lpsMode.equals("delete")) {
+							lPSFileRepo.deleteById(lpsFileId);
+						}
+
+						// LPS Second Tab File Village Save Update Delete
+						List<LPSVillageEntity> lpsVillageList = lpsObject.getLpsVillageDetails();
+
+						if (lpsVillageList != null) {
+
+							for (LPSVillageEntity lpsVillageObj : lpsVillageList) {
+								String villageMode = lpsVillageObj.getMode();
+								Long villageId = lpsVillageObj.getN_ID();
+
+								// Save Entity
+								if (villageId == null && villageMode.equals("create")) {
+									lpsVillageObj.setN_UNIQUE_ID(createdUniqueCode);
+									lpsVillageObj.setN_FILE_ID(createdFileId);
+									lPSVillageRepo.save(lpsVillageObj);
+								}
+
+								// Update Entity
+								else if ( villageMode.equals("edit")) {
+									lPSVillageRepo.save(lpsVillageObj);
+								}
+
+								// Delete
+								if (villageId != null && villageMode.equals("delete")) {
+									lPSVillageRepo.deleteById(villageId);
+								}
+							}
+
+						} else {
+						}
+
+						// LPS Second Tab Dynamic values Save Update Delete
+
+						List<DynamicValueEntity> dynamicValueList = lpsObject.getDynamicValuesDetails();
+
+						if (dynamicValueList != null) {
+
+							for (DynamicValueEntity dynamicValueObj : dynamicValueList) {
+								String dynamicvalueMode = dynamicValueObj.getMode();
+								Long dynamicvalueId = dynamicValueObj.getN_ID();
+
+								// Save Entity
+								if (dynamicvalueId == null && dynamicvalueMode.equals("create")) {
+									dynamicValueObj.setN_UNIQUE_ID(createdUniqueCode);
+									dynamicValueObj.setN_FILE_ID(createdFileId);
+									dynamicValueObj.setV_FILE_NAME(createdFileName);
+									dynamicValueRepo.save(dynamicValueObj);
+								}
+
+								// Update Entity
+								else if (dynamicvalueMode.equals("edit")) {
+									dynamicValueRepo.save(dynamicValueObj);
+								}
+
+								// Delete
+								if ( dynamicvalueId != null &&  dynamicvalueMode.equals("delete")) {
+									dynamicValueRepo.deleteById(dynamicvalueId);
+								}
+							}
+
+						} else {
+
+						}
+
+						// LPS Second Tab Dynamic Files Save Update Delete
+
+						List<LPSFileDynamicValueEntity> lPSFileDynamicValueList = lpsObject
+								.getLpsFileDynamicValuesDetails();
+
+						if (lPSFileDynamicValueList != null) {
+
+							for (LPSFileDynamicValueEntity lPSFileDynamicValueObj : lPSFileDynamicValueList) {
+								String lPSFileDynamicValueMode = lPSFileDynamicValueObj.getMode();
+								Long lPSFileDynamicValueId = lPSFileDynamicValueObj.getN_ID();
+
+
+
+								// Save Entity
+								if (lPSFileDynamicValueId == null && lPSFileDynamicValueMode.equals("create")) {
+									lPSFileDynamicValueObj.setN_UNIQUE_ID(createdUniqueCode);
+									lPSFileDynamicValueObj.setN_FILE_ID(createdFileId);
+									lpsFileDynamicValueRepo.save(lPSFileDynamicValueObj);
+								}
+
+								// Update Entity
+								else if (lPSFileDynamicValueMode.equals("edit")) {
+									lpsFileDynamicValueRepo.save(lPSFileDynamicValueObj);
+								}
+
+								// Delete
+								if (lPSFileDynamicValueId != null &&  lPSFileDynamicValueMode.equals("delete")) {
+									lpsFileDynamicValueRepo.deleteById(lPSFileDynamicValueId);
+								}
+							}
+
+						} else {
+
+						}
+
+					}
+				} else {
+
+				}
+
 				// ! Sixth Tab Left over b/w 6dd and Award Save Update Delete Third tab
 
 				List<Left6DDAwardEntity> left6DDAwardEntityList = lastTabSaveDetails.getLeft6DDAwardEntity();
@@ -1064,6 +1170,9 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 			iteratorObj.setV_PHO_SCHEME_TOTAL_EXTENT(listData[9] != null ? listData[9].toString() : null);
 			iteratorObj.setSixdd_total_extent(listData[10] != null ? listData[10].toString() : null);
 			iteratorObj.setFourone_total_extent(listData[11] != null ? listData[11].toString() : null);
+			iteratorObj.setAward_court_deposit(listData[12] != null ? listData[12].toString() : null);
+			iteratorObj.setAward_direct_payment(listData[13] != null ? listData[13].toString() : null);
+			iteratorObj.setAward_revenue_payment(listData[14] != null ? listData[14].toString() : null);
 
 			if ("All".equals(types) ||
 					("circle".equals(types) && dataMatchesCircle(iteratorObj, values)) ||
@@ -1350,6 +1459,22 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 		awsConfig.setRegion(region);
 		awsConfig.setBucketName(bucketName);
 		return awsConfig;
+	}
+
+	@Override
+	public List<DivisionList> findByDivisionAndDistrictAndVillage(String division, String district, String village) {
+		return divisionlist.selectByDivisionAndDistrictAndVillage(division, district, village);
+	}
+
+	@Override
+	public List<DivisionList> findByCircleAndDistrictAndVillage(String circle, String district, String village) {
+		return divisionlist.selectByCircleAndDistrictAndVillage(circle, district, village);
+	}
+
+
+	@Override
+	public List<DivisionList> findByCircleAndDivisionAndDistrict(String circle, String division, String district) {
+		return divisionlist.selectCircleAndDivisionAndDistrict(circle, division, district);
 	}
 
 

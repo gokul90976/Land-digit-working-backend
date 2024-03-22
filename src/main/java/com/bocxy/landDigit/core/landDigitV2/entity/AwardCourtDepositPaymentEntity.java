@@ -26,6 +26,15 @@ public class AwardCourtDepositPaymentEntity {
     @Column(name = "V_NOTIFIED_PERSON")
     private String V_NOTIFIED_PERSON;
 
+    @Column(name = "V_FILE_NAME")
+    private String V_FILE_NAME;
+
+    @Column(name = "V_FILE_PATH")
+    private String V_FILE_PATH;
+
+    @Transient
+    private String file;
+
     @Transient
     private String mode;
 

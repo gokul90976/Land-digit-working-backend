@@ -5,13 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.bocxy.landDigit.core.landDigitV2.entity.AwardFileEntity;
-import com.bocxy.landDigit.core.landDigitV2.entity.AwsConfig;
+import com.bocxy.landDigit.core.landDigitV2.entity.*;
 import com.bocxy.landDigit.core.landDigitV2.model.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import com.bocxy.landDigit.core.landDigitV2.entity.CountEntityV2;
-import com.bocxy.landDigit.core.landDigitV2.entity.LandDigitMediaEntity;
 
 import javax.persistence.Transient;
 
@@ -56,4 +53,14 @@ public interface LandDigitV2Service {
     public String saveImagesAndVideos(@RequestParam("files") MultipartFile[] files,String N_UNIQUE_ID) throws IOException;
 
     AwsConfig getAwsConfig();
+
+
+    List<DivisionList> findByDivisionAndDistrictAndVillage(String division, String district, String village);
+
+    List<DivisionList> findByCircleAndDistrictAndVillage(String circle, String district, String village);
+
+
+    List<DivisionList> findByCircleAndDivisionAndDistrict(String circle, String division, String district);
+
+
 }

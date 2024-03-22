@@ -40,17 +40,61 @@ public class AwardFileEntity {
     @Column(name = "V_PHO_TOTAL_EXTENT")
     private String V_PHO_TOTAL_EXTENT;
 
+    @Column(name = "V_LHO_TOTAL_EXTENT")
+    private String V_LHO_TOTAL_EXTENT;
+
+    @Column(name = "V_LNHO_TOTAL_EXTENT")
+    private String V_LNHO_TOTAL_EXTENT;
+
     @Column(name = "V_PNHO_TOTAL_EXTENT")
     private String V_PNHO_TOTAL_EXTENT;
 
     @Column(name = "V_PHO_SCHEME_TOTAL_EXTENT")
     private String V_PHO_SCHEME_TOTAL_EXTENT;
 
+    @Column(name = "V_LHO_FILE_NAME")
+    private String V_LHO_FILE_NAME;
+
+    @Column(name = "V_LHO_FILE_PATH")
+    private String V_LHO_FILE_PATH;
+
+    @Column(name = "V_FUTURE_DEV_EXTENT")
+    private String futureDevExtent;
+
+    @Column(name = "V_NOT_UTILISED_EXTENT")
+    private String notUtilisedExtent;
+
+    @Column(name = "V_NOT_UTILISED_LHO_EXTENT_LIST")
+    private String notUtilisedLhoExtentList;
+
+
+    @Column(name = "V_LNHO_EXTENT_1")
+    private String lnhoExtent1;
+
+    @Column(name = "V_LNHO_UTILISED_EXTENT")
+    private String lnhoUtilisedExtent;
+
+    @Column(name = "V_LNHO_EXTENT_LIST")
+    private String lnhoExtentList;
+
+    @Column(name = "V_LHO_EXTENT_1")
+    private String lhoExtent1;
+
+    @Column(name = "V_UTILISED_EXTENT")
+    private String utilisedExtent;
+
+
     @Transient
     private String mode;
 
     @Transient
     private String file;
+
+    @Transient
+    private String Lhofile;
+
+
+
 
     // Add Dynamic Files Button Array
     @Transient
@@ -83,5 +127,13 @@ public class AwardFileEntity {
     // Add Dynamic Possession not taken over Button Array
     @Transient
     private List<AwardPossessionExtentAvailableEntity> awardPossessionExtentAvailableEntityValuesDetails;
+
+
+    @Transient
+    private  List<awardnotUtilisedLhoSelectedExtentList> notUtilisedLhoSelectedExtentList;
+
+    @Transient
+     private List<awardUtilisedLhoSelectedExtentList>awardUtilisedLhoSelectedExtentList;
+
 
 }

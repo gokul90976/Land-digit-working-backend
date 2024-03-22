@@ -39,5 +39,15 @@ public class LandDigitListViewV2 {
 
     private String fourone_total_extent;
 
+    private String award_court_deposit;
+
+    private String award_civil_court;
+
+    private String  award_direct_payment;
+
+    private String  award_revenue_payment;
+
+
+
 
 }

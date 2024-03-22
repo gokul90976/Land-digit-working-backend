@@ -32,6 +32,15 @@ public class AwardDirectPaymentEntity {
     @Column(name = "V_OLD_COLUMN")
     private String V_OLD_COLUMN;
 
+    @Column(name = "V_FILE_NAME")
+    private String V_FILE_NAME;
+
+    @Column(name = "V_FILE_PATH")
+    private String V_FILE_PATH;
+
+    @Transient
+    private String file;
+
     @Transient
     private String mode;
 
