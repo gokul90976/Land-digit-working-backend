@@ -6,9 +6,10 @@ import lombok.Getter;
 import javax.persistence.*;
 
 
+@Entity
 @Data
 @Getter
-public class awardUtilisedLhoSelectedExtentList {
+public class AwardUtilisedLhoSelectedExtentList {
 
 
     @Id
