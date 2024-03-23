@@ -40,6 +40,9 @@ public class AwardFileEntity {
     @Column(name = "V_PHO_TOTAL_EXTENT")
     private String V_PHO_TOTAL_EXTENT;
 
+    @Column(name = "V_LHO_EXTENT_Acres")
+    private String V_LHO_EXTENT_ACRES;
+
     @Column(name = "V_LHO_TOTAL_EXTENT")
     private String V_LHO_TOTAL_EXTENT;
 
@@ -130,10 +133,10 @@ public class AwardFileEntity {
 
 
     @Transient
-    private  List<awardnotUtilisedLhoSelectedExtentList> notUtilisedLhoSelectedExtentList;
+    private  List<AwardnotUtilisedLhoSelectedExtentList>awardnotUtilisedLhoSelectedExtentList;
 
     @Transient
-     private List<awardUtilisedLhoSelectedExtentList>awardUtilisedLhoSelectedExtentList;
+     private List<AwardUtilisedLhoSelectedExtentList>awardUtilisedLhoSelectedExtentList;
 
 
 }

@@ -8,7 +8,10 @@ import javax.persistence.*;
 
 @Data
 @Getter
-public class awardnotUtilisedLhoSelectedExtentList {
+@Entity
+
+@Table(name="award_not_utilised_lho_selected_extent_list")
+public class AwardnotUtilisedLhoSelectedExtentList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +30,8 @@ public class awardnotUtilisedLhoSelectedExtentList {
     @Column(name = "V_LHOSELECTEDEXTENTINLIST")
     private String V_LHOSELECTEDEXTENTINLIST;
 
+    @Column(name = "V_NAME_DATA")
+    private String V_NAME_DATA;
     @Transient
     private String mode;
 }
