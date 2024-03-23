@@ -32,6 +32,9 @@ public class AwardnotUtilisedLhoSelectedExtentList {
 
     @Column(name = "V_NAME_DATA")
     private String V_NAME_DATA;
+    @Column(name = "V_EXTEND")
+    private Long V_EXTEND;
+
     @Transient
     private String mode;
 }

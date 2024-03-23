@@ -138,5 +138,9 @@ public class AwardFileEntity {
     @Transient
      private List<AwardUtilisedLhoSelectedExtentList>awardUtilisedLhoSelectedExtentList;
 
+    @Transient
+    private List<AwardUtilisedLnhoSelectedExtentList>awardutilisedlnhoselectedextentlist;
+
+
 
 }

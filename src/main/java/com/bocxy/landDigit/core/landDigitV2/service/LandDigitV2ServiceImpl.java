@@ -103,6 +103,8 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 	@Autowired
 	AwardUtilisedLhoSelectedExtentListRepo awardutilisedlhoselectedextentlistrepo;
 
+	@Autowired
+	AwardUtilisedLnhoSelectedExtentListRepo awardutilisedlnhoselectedextentlistrepo;
 	@Value("${aws.accessKeyId}")
 	private String accessKeyId;
 
@@ -239,6 +241,10 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 				List<AwardUtilisedLhoSelectedExtentList> awardutilisedlhoselectedextentlist = awardutilisedlhoselectedextentlistrepo
 						.getByUniqueId(unique_Id, file_id);
 				awardFileEntity.setAwardUtilisedLhoSelectedExtentList(awardutilisedlhoselectedextentlist);
+// Award  Utilized
+				List<AwardUtilisedLnhoSelectedExtentList> awardutilisedlnhoselectedextentlist = awardutilisedlnhoselectedextentlistrepo
+						.getByUniqueId(unique_Id, file_id);
+				awardFileEntity.setAwardutilisedlnhoselectedextentlist(awardutilisedlnhoselectedextentlist);
 
 				// Award Possession extent available Details
 				List<AwardPossessionExtentAvailableEntity> awardPossessionExtentAvailableDetails = awardPossessionExtentAvailableRepo
@@ -876,6 +882,39 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 					}
 
 
+
+					List<AwardUtilisedLnhoSelectedExtentList> awardUtilisedLnhoSelectedExtentList = awardFileObject
+							.getAwardutilisedlnhoselectedextentlist();
+
+					if (awardUtilisedLnhoSelectedExtentList != null) {
+						for (AwardUtilisedLnhoSelectedExtentList awardUtilisedLnhoSelectedExtentListValueObj : awardUtilisedLnhoSelectedExtentList) {
+							String awardUtilisedLnhoSelectedExtentDynamicValueMode = awardUtilisedLnhoSelectedExtentListValueObj
+									.getMode();
+							Long awardUtilisedLnhoSelectedExtentDynamicValueId = awardUtilisedLnhoSelectedExtentListValueObj
+									.getN_ID();
+
+							// Save Entity
+							if (awardUtilisedLnhoSelectedExtentDynamicValueId == null
+									&& awardUtilisedLnhoSelectedExtentDynamicValueMode.equals("create")) {
+								awardUtilisedLnhoSelectedExtentListValueObj.setN_UNIQUE_ID(createdUniqueCode);
+								awardUtilisedLnhoSelectedExtentListValueObj.setN_FILE_ID(createdFileId);
+								awardutilisedlnhoselectedextentlistrepo.save(awardUtilisedLnhoSelectedExtentListValueObj);
+							}
+
+							// Update Entity
+							else if (awardUtilisedLnhoSelectedExtentDynamicValueMode.equals("edit")) {
+								awardutilisedlnhoselectedextentlistrepo.save(awardUtilisedLnhoSelectedExtentListValueObj);
+							}
+
+							// Delete
+							if (awardUtilisedLnhoSelectedExtentDynamicValueId != null && awardUtilisedLnhoSelectedExtentDynamicValueMode.equals("delete")) {
+								awardutilisedlnhoselectedextentlistrepo.deleteById(awardUtilisedLnhoSelectedExtentDynamicValueId);
+							}
+						}
+					} else {
+
+					}
+
 					// Award Fifth Tab Possession Not Taken Over Save Update Delete
 
 					List<AwardPossessionNotTakenOverEntity> awardPossessionNotTakenOverEntityList = awardFileObject
@@ -910,6 +949,7 @@ public class LandDigitV2ServiceImpl implements LandDigitV2Service {
 					} else {
 
 					}
+
 
 					List<AwardUtilisedLhoSelectedExtentList> awardUtilisedLhoSelectedExtentList = awardFileObject
 							.getAwardUtilisedLhoSelectedExtentList();
