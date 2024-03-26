@@ -2,6 +2,8 @@ package com.bocxy.landDigit.core.landDigitV2.model;
 
 import lombok.Data;
 
+import javax.persistence.Column;
+
 @Data
 public class LandDigitListViewV2 {
 
@@ -49,5 +51,23 @@ public class LandDigitListViewV2 {
 
 
 
+    private String futureDevExtent;
 
+
+    private String notUtilisedExtent;
+
+    private String notUtilisedLhoExtentList;
+
+
+    private String lnhoExtent1;
+
+    private String lnhoUtilisedExtent;
+
+    private String lnhoExtentList;
+
+    private String lhoExtent1;
+
+    private String utilisedExtent;
+
+    private String N_TOTAL_AWARD_AMOUNT;
 }

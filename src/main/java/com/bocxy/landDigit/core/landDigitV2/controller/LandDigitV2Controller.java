@@ -319,6 +319,50 @@ public class LandDigitV2Controller {
                 .collect(Collectors.toList());
     }
 
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<String> deleteCourtCase(@PathVariable Long id) {
+        landDigitV2DetailsService.courtcase(id);
+        return ResponseEntity.ok("Court case with ID: " + id + " has been deleted successfully.");
+    }
+
+
+    @PostMapping("/not-utilised-lho-selected-extent-list/delete/{id}")
+    public ResponseEntity<String> deleteNotUtilisedLhoSelectedExtentList(@PathVariable Long id) {
+        landDigitV2DetailsService.awardnotutilisedlhoselectedextentlistrepodeleteById(id);
+        return ResponseEntity.ok("Award not utilised Lho selected extent list with ID: " + id + " has been deleted successfully.");
+    }
+
+    @PostMapping("/utilised-lho-selected-extent-list/delete/{id}")
+    public ResponseEntity<String> deleteUtilisedLhoSelectedExtentList(@PathVariable Long id) {
+        landDigitV2DetailsService.awardutilisedlhoselectedextentlistrepodeleteById(id);
+        return ResponseEntity.ok("Award utilised Lho selected extent list with ID: " + id + " has been deleted successfully.");
+    }
+
+    @PostMapping("/utilised-lnho-selected-extent-list/delete/{id}")
+    public ResponseEntity<String> deleteUtilisedLnhoSelectedExtentList(@PathVariable Long id) {
+        landDigitV2DetailsService.awardutilisedlnhoselectedextentlistrepodeleteById(id);
+        return ResponseEntity.ok("Award utilised Lho selected extent list with ID: " + id + " has been deleted successfully.");
+    }
+
+    @PostMapping("/direct-payment/delete/{id}")
+    public ResponseEntity<String> deleteDirectPayment(@PathVariable Long id) {
+        landDigitV2DetailsService.Direct(id);
+        return ResponseEntity.ok("Direct payment with ID: " + id + " has been deleted successfully.");
+    }
+
+    @PostMapping("/court-deposit-payment/delete/{id}")
+    public ResponseEntity<String> deleteCourtDepositPayment(@PathVariable Long id) {
+        landDigitV2DetailsService.courtcase(id);
+        return ResponseEntity.ok("Court deposit payment with ID: " + id + " has been deleted successfully.");
+    }
+
+    @PostMapping("/revenue-payment/delete/{id}")
+    public ResponseEntity<String> deleteRevenuePayment(@PathVariable Long id) {
+        landDigitV2DetailsService.revenue(id);
+        return ResponseEntity.ok("Revenue payment with ID: " + id + " has been deleted successfully.");
+    }
+
+
 
 
 

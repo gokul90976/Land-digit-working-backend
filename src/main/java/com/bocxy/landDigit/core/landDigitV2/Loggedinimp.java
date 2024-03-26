@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 public class Loggedinimp {
 	
-	 String myUrl ="jdbc:mysql://tnhb-landdigit.cvk3pspk8bzn.ap-south-1.rds.amazonaws.com/landdigit_db";
+	 String myUrl ="jdbc:mysql://tnhb-landdigit.cvk3pspk8bzn.ap-south-1.rds.amazonaws.com/landdigit_db_new";
 	 String root="root";
 	 String pswd="yazhini1998";
 	
@@ -14,7 +14,7 @@ public class Loggedinimp {
 	
 	{		 
 		Connection conc = DriverManager.getConnection(myUrl, root, pswd);
-		String query =  "UPDATE landdigit_db.users SET loggedin = CASE loggedin  WHEN "+"'"+0+"'" +" THEN "+"'"+1+"'" +" ELSE "+"'"+2+"'" +" END  where username = "+"'"+username+"'";
+		String query =  "UPDATE land_db.users SET loggedin = CASE loggedin  WHEN "+"'"+0+"'" +" THEN "+"'"+1+"'" +" ELSE "+"'"+2+"'" +" END  where username = "+"'"+username+"'";
 		Statement stm = conc.createStatement();
 		int rset=stm.executeUpdate(query);
 		return username;
@@ -23,7 +23,7 @@ public class Loggedinimp {
 	public String Updateloggedout(String username) throws Exception
 	{
 		Connection conc = DriverManager.getConnection(myUrl, root, pswd);
-	    String query = "Update landdigit_db.users set loggedin= "+"'"+0+"'" +" where username="+"'"+username+"'";
+	    String query = "Update land_db.users set loggedin= "+"'"+0+"'" +" where username="+"'"+username+"'";
 	    Statement stm = conc.createStatement();
 	    int rset=stm.executeUpdate(query);
 		return username;

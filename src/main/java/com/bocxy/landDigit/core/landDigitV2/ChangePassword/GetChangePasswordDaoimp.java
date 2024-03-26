@@ -22,15 +22,15 @@ public class GetChangePasswordDaoimp implements GetChangePasswordDao {
   public static void main(String[] args) {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-    dataSource.setUrl("jdbc:mysql://tnhb-landdigit.cvk3pspk8bzn.ap-south-1.rds.amazonaws.com/landdigit_db");
+    dataSource.setUrl("jdbc:mysql://tnhb-landdigit.cvk3pspk8bzn.ap-south-1.rds.amazonaws.com/landdigit_db_new");
     dataSource.setUsername("root");
     dataSource.setPassword("yazhini1998");
   }
   public List<User> updatealldetails(String username, String password) {
 
-    String sqlQuery = " Update landdigit_db.users SET password = '" + password + "'"
+    String sqlQuery = " Update land_db.users SET password = '" + password + "'"
             + " WHERE username = '" + username + "' ";
-    String DB_URL = "jdbc:mysql://tnhb-landdigit.cvk3pspk8bzn.ap-south-1.rds.amazonaws.com/landdigit_db";
+    String DB_URL = "jdbc:mysql://tnhb-landdigit.cvk3pspk8bzn.ap-south-1.rds.amazonaws.com/landdigit_db_new";
     String USER = "root";
     String PASS = "yazhini1998";
     try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -41,7 +41,7 @@ public class GetChangePasswordDaoimp implements GetChangePasswordDao {
       System.out.println(e);
     }
     List<User> domain = new ArrayList<>();
-    String sqlQuery1 = " Select * from landdigit_db.users ";
+    String sqlQuery1 = " Select * from land_db.users ";
     domain = namedParameterJdbcTemplate.query(sqlQuery1, new BeanPropertyRowMapper<>(User.class));
     return domain;
   }

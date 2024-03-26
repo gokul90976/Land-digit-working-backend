@@ -25,11 +25,17 @@ public interface LandDigitDataDivisionWiseRepo extends JpaRepository<LandDigitDa
             "           SUM(award.V_PHO_TOTAL_EXTENT) AS V_PHO_TOTAL_EXTENT,\n" +
             "           SUM(award.V_PNHO_TOTAL_EXTENT) AS V_PNHO_TOTAL_EXTENT,\n" +
             "           SUM(award.V_PHO_SCHEME_TOTAL_EXTENT) AS V_PHO_SCHEME_TOTAL_EXTENT,\n" +
+            "           SUM(award.v_future_dev_extent) AS sum_v_future_dev_extent,\n" +
+            "           SUM(award.v_lho_extent_1) AS sum_v_lho_extent_1,\n" +
+            "           SUM(award.v_utilised_extent) AS sum_v_utilised_extent,\n" +
+            "           SUM(award.v_not_utilised_lho_extent_list) AS sum_v_not_utilised_lho_extent_list,\n" +
             "           (SELECT SUM(V_TOTAL_EXTENT) FROM landdigit_db.6dd_file WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS total_extent_6dd,\n" +
             "           (SELECT SUM(V_TOTAL_EXTENT) FROM landdigit_db.4_one WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS total_extent_4_one,\n" +
             "           (SELECT SUM(V_AMOUNT) FROM landdigit_db.award_court_deposit_payment WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS courtcase,\n"+
             "           (SELECT SUM(V_AMOUNT) FROM landdigit_db.award_direct_payment WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS direct,\n"+
-            "           (SELECT SUM(V_AMOUNT) FROM landdigit_db.award_revenue_payment WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS revenue\n"+
+            "           (SELECT SUM(V_AMOUNT) FROM landdigit_db.award_revenue_payment WHERE N_UNIQUE_ID = award.N_UNIQUE_ID) AS revenue,\n"+
+            "           SUM(award.N_TOTAL_AWARD_AMOUNT) AS N_TOTAL_AWARD_AMOUNT\n," +
+            "           SUM(award.v_lnho_extent_1) AS sum_v_lnho_extent_1\n" +
             "           \n" +
             "           FROM\n" +
             "           award_file AS award\n" +

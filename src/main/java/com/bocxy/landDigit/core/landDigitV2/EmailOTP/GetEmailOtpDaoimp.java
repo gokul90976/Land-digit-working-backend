@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class GetEmailOtpDaoimp {
 
-  String myUrl = "jdbc:mysql://tnhb-landdigit.cvk3pspk8bzn.ap-south-1.rds.amazonaws.com/landdigit_db";
+  String myUrl = "jdbc:mysql://tnhb-landdigit.cvk3pspk8bzn.ap-south-1.rds.amazonaws.com/landdigit_db_new";
   String root = "root";
   String pswd = "yazhini1998";
 
@@ -34,7 +34,7 @@ public class GetEmailOtpDaoimp {
     if (emailid != null && emailid != "" && OTP != null && OTP != "" && username != null && username != "") {
 
       Connection conc = DriverManager.getConnection(myUrl, root, pswd);
-      String query = "Update landdigit_db.users set otp= " + "'" + OTP + "'" + " where username=" + "'" + username + "'";
+      String query = "Update land_db.users set otp= " + "'" + OTP + "'" + " where username=" + "'" + username + "'";
       Statement stm = conc.createStatement();
       int rset = stm.executeUpdate(query);
       try {

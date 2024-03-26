@@ -18,7 +18,7 @@ public interface AwardFileRepo extends JpaRepository<AwardFileEntity,Long> {
 			"COALESCE(jr.totalAmountDirectPayment, 0) AS totalAmountDirectPayment, " +
 			"COALESCE(jr.totalAmountCourtDeposit, 0) AS totalAmountCourtDeposit, " +
 			"COALESCE(jr.totalAmountRevenuePayment, 0) AS totalAmountRevenuePayment " +
-			"FROM landdigit_db.award_file af " +
+			"FROM land_db.award_file af " +
 			"LEFT JOIN ( " +
 			"    SELECT COALESCE(adp.n_file_id, acdp.n_file_id, arp.n_file_id) AS nId, " +
 			"           adp.total_amount AS totalAmountDirectPayment, " +

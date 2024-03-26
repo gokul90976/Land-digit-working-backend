@@ -63,4 +63,16 @@ public interface LandDigitV2Service {
     List<DivisionList> findByCircleAndDivisionAndDistrict(String circle, String division, String district);
 
 
+    void awardnotutilisedlhoselectedextentlistrepodeleteById(Long id);
+
+    void awardutilisedlhoselectedextentlistrepodeleteById(Long id);
+
+
+    void awardutilisedlnhoselectedextentlistrepodeleteById(Long id);
+
+    void Direct(Long id);
+
+    void revenue(Long id);
+
+    void courtcase(Long id);
 }
